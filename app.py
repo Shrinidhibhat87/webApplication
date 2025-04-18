@@ -55,36 +55,118 @@ def web_portfolio():
     st.write(f"""
     <div style="display: flex; justify-content: center; margin-bottom: 20px;">{''.join(social_media_html)}</div>""", unsafe_allow_html=True)
 
-    # About Me
-    st.write(f"""
-    <div style="text-align: center;">
-    ##
-    </div>
+    # Download button for CV
+    st.write("""
+    <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+        <div>
+            <style>
+                div.stDownloadButton > button {
+                    margin: 0 auto;
+                    display: block;
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    background-color: #262626;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    transition: background-color 0.3s ease;
+                }
+                div.stDownloadButton > button:hover {
+                    background-color: #45a049;
+                }
+            </style>
+            """, unsafe_allow_html=True)
+    st.download_button("Download CV", data=pdf_bytes, file_name="CV.pdf", mime="application/pdf")
+    st.write("</div></div>", unsafe_allow_html=True)
+
+    # Define available sections
+    sections = ["About Me", "Work Experiences", "Projects", "Articles"]
+
+    # Initialize session state to remember selected section
+    if 'selected_section' not in st.session_state:
+        st.session_state.selected_section = "About Me"  # Default section
+
+    # Custom CSS to style the buttons
+    st.markdown("""
+    <style>
+    div.stButton > button {
+        margin: 0 20px;
+        padding: 20px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #262626;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+    }
+    div.stButton > button:hover {
+        background-color: #45a049;
+    }
+    </style>
     """, unsafe_allow_html=True)
 
-    st.write(f"""
-    <div style="text-align: center;">
-    <h3>About Me</h3>
-    </div>
-    """, unsafe_allow_html=True)
+    # Display section navigation as buttons in a row
+    cols = st.columns(len(sections), gap="small")
+    for i, section in enumerate(sections):
+        with cols[i]:
+            if st.button(section):
+                st.session_state.selected_section = section
 
-    st.write(f"""
-    <div style="display: flex; justify-content: center; padding: 20px;">
-        <div style="text-align: left; max-width: 800px;">
-            <p>👁️ I am a <b>Computer Vision PhD Student and a Data Science Researcher</b> at <a href="https://www.fz-juelich.de/en/ias/ias-9" target="_blank">Forschungszentrum Jülich IAS-9 Team</a></p>
-            <p>❤️ I am passionate about 🤖 <i>Robotics</i>, <i>Computer Vision</i>, and <i>Machine Learning</i>.</p>
-            <p>🎓 I graduated from RWTH Aachen University with a Masters in <i>Robotic Systems Engineering</i></p>
-            <p>🚘 I did my Master thesis at BMW with the topic being: <i>Bandwidth Efficient Learning on Vision Transformers For Semantic Segmentation</i></p>
-            <p>🤖 I was a Research Intern in the <i>Robot Learning</i> team at Bosch center of AI where I worked on a <i>Multi-view segmentation pipeline</i></p>
-            <p>💼 I have a full time working experience (2+ years) as an Embedded Firmware Developer at <a href="https://www.westerndigital.com/" target="_blank">Western Digital India</a>.</p>
-            <p>⏳ Outside of work, I play football ⚽ and badminton 🏸. I enjoy outdoor activities like hiking ⛰️ and via ferrata 🧗. I also read books 📖.</p>
-            <p>📫 You can reach me at <a href="mailto:shrinidhi.bhat@rwth-aachen.de">shrinidhi.bhat@rwth-aachen.de</a></p>
+    # Show content based on which section is selected
+    selected_section = st.session_state.selected_section
+
+    if selected_section == "About Me":
+        st.markdown("""
+        <div style="text-align: center;">
+            <h3 style="font-size: 24px; font-weight: bold;">About Me</h3>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        <div style="display: flex; justify-content: center; padding: 20px;">
+            <div style="text-align: left; max-width: 800px;">
+                <p>👁️ I am a <b>Computer Vision PhD Student and a Data Science Researcher</b> at <a href="https://www.fz-juelich.de/en/ias/ias-9" target="_blank">Forschungszentrum Jülich IAS-9 Team</a></p>
+                <p>❤️ Passionate about 🤖 <i>Robotics</i>, <i>Computer Vision</i>, and <i>Machine Learning</i>.</p>
+                <p>🎓 Graduated from RWTH Aachen University with a Masters in <i>Robotic Systems Engineering</i></p>
+                <p>🚘 Master thesis at BMW: <i>Bandwidth Efficient Learning on Vision Transformers For Semantic Segmentation</i></p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
-    # Let them download the CV
-    st.download_button(label="Download CV", data=pdf_bytes, file_name="CV.pdf", mime="application/pdf", key="download-cv")
+    elif selected_section == "Work Experiences":
+        st.markdown("""
+        <div style="text-align: center;">
+            <h3 style="font-size: 24px; font-weight: bold;">Work Experiences</h3>
+        </div>
+        <div style="display: flex; justify-content: center; padding: 20px;">
+            <ul>
+                <li>Dummy Work Experience 1: <i>Software Engineer at Example Company</i></li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+    elif selected_section == "Projects":
+        st.markdown("""
+        <div style="text-align: center;">
+            <h3 style="font-size: 24px; font-weight: bold;">Projects</h3>
+        </div>
+        <div style="display: flex; justify-content: center; padding: 20px;">
+            <ul>
+                <li><a href="https://github.com/example-project" target="_blank">Dummy Project 1</a></li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+    elif selected_section == "Articles":
+        st.markdown("""
+        <div style="text-align: center;">
+            <h3 style="font-size: 24px; font-weight: bold;">Articles</h3>
+        </div>
+        <div style="display: flex; justify-content: center; padding: 20px;">
+            <ul>
+                <li><a href="https://medium.com/example-article" target="_blank">Dummy Article 1</a></li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
     
 
 
