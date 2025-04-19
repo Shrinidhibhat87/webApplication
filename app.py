@@ -124,10 +124,14 @@ def web_portfolio():
         </div>
         <div style="display: flex; justify-content: center; padding: 20px;">
             <div style="text-align: left; max-width: 800px;">
-                <p>👁️ I am a <b>Computer Vision PhD Student and a Data Science Researcher</b> at <a href="https://www.fz-juelich.de/en/ias/ias-9" target="_blank">Forschungszentrum Jülich IAS-9 Team</a></p>
+                <p>👁️ I am a <b>Computer Vision PhD Student and a Data Science Researcher</b> at <a href="https://www.fz-juelich.de/en/ias/ias-9" target="_blank">Forschungszentrum Jülich Materials Data Science and Informatics Team</a></p>
                 <p>❤️ Passionate about 🤖 <i>Robotics</i>, <i>Computer Vision</i>, and <i>Machine Learning</i>.</p>
                 <p>🎓 Graduated from RWTH Aachen University with a Masters in <i>Robotic Systems Engineering</i></p>
                 <p>🚘 Master thesis at BMW: <i>Bandwidth Efficient Learning on Vision Transformers For Semantic Segmentation</i></p>
+                <p>🤖 I was a Research Intern in the <i>Robot Learning</i> team at Bosch center of AI where I worked on a <i>Multi-view segmentation pipeline</i></p>
+                <p>💼 I have a full time working experience (2+ years) as an Embedded Firmware Developer at <a href="https://www.westerndigital.com/" target="_blank">Western Digital India</a>.</p>
+                <p>⏳ Outside of work, I play football ⚽ and badminton 🏸. I enjoy outdoor activities like hiking ⛰️ and via ferrata 🧗. I also read books 📖.</p>
+                <p>📫 You can reach me at <a href="mailto:shrinidhi.bhat@rwth-aachen.de">shrinidhi.bhat@rwth-aachen.de</a></p>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -139,7 +143,7 @@ def web_portfolio():
         </div>
         <div style="display: flex; justify-content: center; padding: 20px;">
             <ul>
-                <li>Dummy Work Experience 1: <i>Software Engineer at Example Company</i></li>
+                <li>Fo: <i>Software Engineer at Example Company</i></li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
