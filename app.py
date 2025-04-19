@@ -137,16 +137,159 @@ def web_portfolio():
         """, unsafe_allow_html=True)
 
     elif selected_section == "Work Experiences":
-        st.markdown("""
-        <div style="text-align: center;">
-            <h3 style="font-size: 24px; font-weight: bold;">Work Experiences</h3>
-        </div>
-        <div style="display: flex; justify-content: center; padding: 20px;">
-            <ul>
-                <li>Fo: <i>Software Engineer at Example Company</i></li>
-            </ul>
-        </div>
+        # Sample experience data (replace with yours in order)
+        work_experiences = [
+            {
+                "title": "PhD Student (Computer Vision and Data Science)",
+                "company": "Forschungszentrum Jülich IAS-9, Germany",
+                "timeline": "01/2025 - Present",
+                "topic": "Computer Vision methods for in-situ Scanning transmission electron microscopy",
+                "tech stack": "Python, PyTorch, OpenCV, Numpy, Weights & Biases, LiberTEM, Matplotlib, CI/CD",
+                "points": [
+                    "Researching on computer vision methods to automate defect detection and tracking methods for novel 4D-STEM images.",
+                    "Building an entire infrastructure for end-to-end computer vision pipeline for training and deployment"
+                ]
+            },
+            {
+                "title": "Master Thesis - Computer Vision",
+                "company": "BMW, München",
+                "timeline": "03/2024 - 07/2024",
+                "topic": "Bandwidth Efficient Learning on Vision Transformers for Semantic Segmentation",
+                "tech stack": "Python, PyTorch, HuggingFace, Tensorboard, Matplotlib, Docker, CI/CD, Pillow",
+                "points": [
+                    "Integrated Mask2Former, a SoTA vision transformer model into existing stack and created pipeline for scalable cluster training.",
+                    "Pioneered architecture for image compression using attention maps, optimizing storage efficiency by 30%.",
+                    "Developed custom torchvision transforms, reducing bandwidth usage by over 70%.",
+                    "Used VAE-based generative AI for image reconstruction to optimize segmentation model performance."
+                ]
+            },
+            {
+                "title": "Robotics Intern - Robotic Perception",
+                "company": "Bosch Center for AI, Renningen",
+                "timeline": "09/2023 - 02/2024",
+                "project": "3D Multiview segmentation pipeline for scene understanding",
+                "tech stack": "Python, PyTorch, ROS2, Docker, ROS2 services, Open3D, OpenCV, RViz, Numpy, RestFul API, Meshlab, CI/CD, Code review",
+                "points": [
+                    "Designed and developed a 3D Multi-view segmentation pipeline on a multi-thread ROS2 node for the geometric perception stack of a household Robotic application",
+                    "Implemented custom python libraries to construct and register 3D pointclouds for mapping in SLAM using RGBD data.",
+                    "Developed a baseline library function that maps segments from one frame to another at the rate of 20Hz using 3D pointclouds.",
+                    "Integrated SAM (Segment Anything Model), a SoTA foundational model for segmentation from RestFul API in the ROS2 node using ROS2 services.",
+                    "Integrated GLIP, a vision-language model that takes language as input and outputs bounding box coordinates from a Docker container."
+                ]
+            },
+            {
+                "title": "Embedded AI- Working Student",
+                "company": "Aptiv PLC, Wuppertal",
+                "timeline": "09/2022 - 08/2023",
+                "project": "Development and thorough unit testing of an optimization tool for the Aptiv Embedded AI Stack.",
+                "tech stack": "JavaScript, Python, PyTorch, Docker, Github Actions, CI/CD, NPM, Jest, ONNXRuntime, TVM, ONNX",
+                "points": [
+                    "Customized and optimized Netron, a visualization tool, for efficient model optimization while also reducing debug time by over 50",
+                    "Developed features for model optimization, for all edge frameworks like ONNXRuntime, TVM, ONNX.",
+                    "Built the entire unit testing architecture for the tool using npm and jest.",
+                    "Deployed the containerized testing architecture on a CI/CD pipeline using GitHub actions.",
+                ]
+            },
+            {
+                "title": "Engineer - Firmware Development",
+                "company": "Western Digital India, Bangalore",
+                "timeline": "07/2019 - 09/2021",
+                "products": "18, 20, 22TB HDDs (Product Development) ; 16/18 TBs (Product Sustenance)",
+                "tech stack": "C++, Git, Jenkins, CMake, Python, Jira, Agile, SAFe",
+                "points": [
+                    "Designed and optimized algorithms to prioritize commands for HDD processing, utilizing complex data structures like Queue, Graphs, Hashmaps",
+                    "Implemented features to seamlessly integrate incoming commands into the appropriate data structures. Constructed and used ETL for analysis",
+                    "Designed and delivered on Customer facing failure demands along with Value demands in the Dispatch eHDD team.",
+                    "Engaged in end-to-end software development, testing, and validation within an Agile framework following SAFe methodologies.",
+                ]
+            },
+            {
+                "title": "Embedded IoT Intern",
+                "company": "TAAL Tech India, Bangalore",
+                "timeline": "12/2018 - 06/2019",
+                "project": "Smart Building Lighting application.",
+                "tech stack": "C, BLE Mesh protocol, UART protocol",
+                "points": [
+                    "Developed the firmware for BLE Mesh protocol from the ground up for a smart building lighting application.",
+                    "Developed and tested the firmware on nRF52840 chipset that communicated with a mobile application",
+                    "Integrated nRF52840 with UART for communication with sensors and drivers connected to the microcontroller",
+                ]
+            },
+        ]
+
+        # Slider to simulate scroll/focus logic
+        st.markdown("### Scroll to View Experience")
+        focused_idx = st.slider("Scroll through experiences:", 0, len(work_experiences) - 1, 0, format="%d")
+
+        # Inject CSS for box styling and background fading with dynamic theme support
+        theme = st.get_option("theme.base")  # Get the current theme (light or dark)
+        text_color = "#FFFFFF" if theme == "dark" else "#000000"  # White for dark theme, black for light theme
+        background_color = "#581845" if theme == "dark" else "#F0F0F0"  # Dark purple for dark theme, light gray for light theme
+
+        st.markdown(f"""
+            <style>
+            .experience-box {{
+            background-color: {background_color};
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease-in-out;
+            color: {text_color};
+            }}
+            .dimmed {{
+            opacity: 0.3;
+            }}
+            .experience-title {{
+            font-size: 20px;
+            font-weight: bold;
+            }}
+            .experience-company {{
+            font-size: 18px;
+            font-weight: 600;
+            }}
+            .experience-timeline {{
+            font-size: 14px;
+            color: #777;
+            }}
+            .experience-topic, .experience-project, .experience-products {{
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 10px;
+            font-style: italic;
+            }}
+            .experience-tech-stack {{
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 10px;
+            font-style: italic;
+            }}
+            .experience-points {{
+            margin-top: 10px;
+            }}
+            </style>
         """, unsafe_allow_html=True)
+
+        # Render the experience cards
+        for idx, exp in enumerate(work_experiences):
+            # Show only 2 cards in full opacity; rest are dimmed
+            is_visible = abs(idx - focused_idx) <= 5
+            box_class = "experience-box" + ("" if is_visible else " dimmed")
+
+            # Determine which key to display (topic, project, or products)
+            description_key = "topic" if "topic" in exp else "project" if "project" in exp else "products"
+
+            st.markdown(f"""
+            <div class="{box_class}">
+                <div class="experience-title">{exp['title']} - <span class="experience-company">{exp['company']}</span> 
+                <span class="experience-timeline">({exp['timeline']})</span>
+                </div>
+                <div class="experience-{description_key}">{description_key.capitalize()}: {exp[description_key]}</div>
+                <ul class="experience-points">
+                {''.join(f"<li>{point}</li>" for point in exp['points'])}
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
 
     elif selected_section == "Projects":
         st.markdown("""
