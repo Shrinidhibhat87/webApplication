@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from base64 import b64encode
 
@@ -15,7 +16,7 @@ def web_portfolio():
     st.markdown("<style>div.block-container{padding-top: 4rem;}</style>", unsafe_allow_html=True)
 
     # Add profile image
-    with open('image_zapikanka.jpg', 'rb') as image_file:
+    with open('images/image_zapikanka.jpg', 'rb') as image_file:
         # Use of base64 encoding to display the image
         image = "data:image/jpeg;base64," + b64encode(image_file.read()).decode()
 
@@ -283,16 +284,85 @@ def web_portfolio():
             """, unsafe_allow_html=True)
 
     elif selected_section == "Projects":
+
+        # Theme-aware styling
+        theme = st.get_option("theme.base")
+        text_color = "#FFFFFF" if theme == "dark" else "#000000"
+
+        # Title
         st.markdown("""
         <div style="text-align: center;">
-            <h3 style="font-size: 24px; font-weight: bold;">Projects</h3>
-        </div>
-        <div style="display: flex; justify-content: center; padding: 20px;">
-            <ul>
-                <li><a href="https://github.com/example-project" target="_blank">Dummy Project 1</a></li>
-            </ul>
+            <h1>Projects</h1>
         </div>
         """, unsafe_allow_html=True)
+
+        # List of projects
+        projects = [
+            {
+            "title": "3D Bounding Box Prediction",
+            "description": "Built an end-to-end pipeline using 3DETR for predicting bounding box corners on point cloud data.",
+            "image_path": "images/3dboundingbox.png",
+            "github_url": "https://github.com/Shrinidhibhat87/codingchallenge_sereact",
+            "points": [
+                "Developed an end-to-end deep learning pipeline for 3D bounding box prediction, integrating a custom dataloader, data augmentation, and a transformer-based model architecture.",
+                "Conducted extensive research on state-of-the-art transformer methodologies, adapting them to enhance performance on limited datasets.",
+                "Optimized model performance by refining loss functions and systematically tuning hyperparameters, achieving a mean Intersection over Union (IoU) of 0.27 with only 100 samples.",
+                "Utilized Weights and Biases for comprehensive experiment tracking, enabling effective monitoring and analysis of model training and validation metrics."
+            ]
+            },
+            {
+            "title": "Master Thesis - Transformer based Compression for Semantic Segmentation",
+            "description": "Integrated Mask2Former and built a bandwidth efficient semantic segmentation framework on CityScapes dataset.",
+            "image_path": "images/master_thesis.png",
+            "github_url": "https://github.com/Shrinidhibhat87/MasterThesis",
+            "points": [
+                "Designed and developed the entire architecture for bandwidth efficient semantic segmentation using Mask2Former.",
+                "Build custom dataloaders and torchvision transforms to reduce bandwidth usage by over 70%.",
+                "Integrated VAE for image reconstruction to compare with baseline model performance."
+            ]
+            },
+            {
+            "title": "Monocular visual odometry",
+            "description": "Built a monocular visual odometry pipeline using OpenCV, FAST, and the Lucas-Kanade optical flow algorithm (KLT) for feature tracking.",
+            "image_path": "images/visual_odometry.png",
+            "github_url": "https://github.com/Shrinidhibhat87/monocular_visual_odometry",
+            "points": [
+                "Developed monocular visual odometry algorithm that estimates camera motion between consecutive frames.",
+                "Implemented image preprocessing, FAST feature detection, 5-point algorithm for essential matrix estimation, RANSAC for outlier rejection.",
+                "Ensured clean, modular, and well structured C++ code with Git version control for effective collaboration and continuous integration."
+            ]
+            }
+        ]
+
+        # Inject CSS for styling project descriptions
+        st.markdown("""
+        <style>
+        .project-description {
+            font-size: 18px;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+        # Render each project
+        for project in projects:
+            # Use two columns: image on left, text on right
+            col1, col2 = st.columns([1, 4], gap="small")
+            
+            with col1:
+                if os.path.exists(project["image_path"]):
+                    st.image(project["image_path"], width=400)
+                else:
+                    st.warning(f"Image not found: {project['image_path']}")
+
+            with col2:
+                st.markdown(f"### [{project['title']}]({project['github_url']})")
+                st.markdown(f"<p class='project-description'>{project['description']}</p>", unsafe_allow_html=True)
+                st.markdown("<ul>", unsafe_allow_html=True)
+                for point in project["points"]:
+                    st.markdown(f"<li>{point}</li>", unsafe_allow_html=True)
+                st.markdown("</ul>", unsafe_allow_html=True)
+            
+            st.markdown("---")
 
     elif selected_section == "Articles":
         st.markdown("""
