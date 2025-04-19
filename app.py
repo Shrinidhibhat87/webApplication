@@ -217,10 +217,6 @@ def web_portfolio():
             },
         ]
 
-        # Slider to simulate scroll/focus logic
-        st.markdown("### Scroll to View Experience")
-        focused_idx = st.slider("Scroll through experiences:", 0, len(work_experiences) - 1, 0, format="%d")
-
         # Inject CSS for box styling and background fading with dynamic theme support
         theme = st.get_option("theme.base")  # Get the current theme (light or dark)
         text_color = "#FFFFFF" if theme == "dark" else "#000000"  # White for dark theme, black for light theme
@@ -236,9 +232,6 @@ def web_portfolio():
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: all 0.3s ease-in-out;
             color: {text_color};
-            }}
-            .dimmed {{
-            opacity: 0.3;
             }}
             .experience-title {{
             font-size: 20px;
@@ -272,9 +265,7 @@ def web_portfolio():
 
         # Render the experience cards
         for idx, exp in enumerate(work_experiences):
-            # Show only 2 cards in full opacity; rest are dimmed
-            is_visible = abs(idx - focused_idx) <= 5
-            box_class = "experience-box" + ("" if is_visible else " dimmed")
+            box_class = "experience-box"
 
             # Determine which key to display (topic, project, or products)
             description_key = "topic" if "topic" in exp else "project" if "project" in exp else "products"
