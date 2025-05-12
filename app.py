@@ -23,12 +23,16 @@ def web_portfolio():
     # Create two columns for layout
     col1, col2 = st.columns([1, 3], gap="small")
 
+    # For PDF files
+    with open('CV.pdf', 'rb') as pdf_file:
+        pdf_bytes = pdf_file.read()
+
     with col1:
         # Display the information
         st.write(f"""
         <div style="display: flex; justify-content: left; align-items: left;  margin-left: 50px; padding: 10px;">
         <div class="box">
-        <img src="{image}" alt="Shrinidhi Bhat" style="width: 275px; height: 350px;">
+        <img src="{image}" alt="Shrinidhi Bhat" style="width: 300px; height: 375px;">
         </div>
         </div>
         """, unsafe_allow_html=True)
@@ -54,6 +58,35 @@ def web_portfolio():
         # Apply these icons using st.write
         st.write(f"""
         <div style="display: flex; justify-content: left; margin-left: 150px;">{''.join(social_media_html)}</div>""", unsafe_allow_html=True)
+        # Download button for CV
+        st.write("""
+        <style>
+            div.stDownloadButton > button {
+                display: block;
+                padding: 10px 20px;
+                font-size: 16px;
+                font-weight: bold;
+                background-color: #262626;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+                margin-left: 120px;
+                margin-top: 15px;
+            }
+            div.stDownloadButton > button:hover {
+                background-color: #45a049;
+            }
+            .download-container {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+        </style>
+        <div class="download-container"></div>
+        """, unsafe_allow_html=True)
+
+        st.download_button("Download CV", data=pdf_bytes, file_name="CV.pdf", mime="application/pdf")
 
     with col2:
         # Display the "About Me" section
@@ -74,34 +107,6 @@ def web_portfolio():
             </div>
         </div>
         """, unsafe_allow_html=True)
-
-    # For PDF files
-    with open('CV.pdf', 'rb') as pdf_file:
-        pdf_bytes = pdf_file.read()
-
-    # Download button for CV
-    st.write("""
-    <div style="display: flex; justify-content: center; margin-bottom: 20px; margin-left: 400px;">
-        <div>
-            <style>
-                div.stDownloadButton > button {
-                    margin-left: 850px;
-                    display: block;
-                    padding: 10px 20px;
-                    font-size: 16px;
-                    font-weight: bold;
-                    background-color: #262626;
-                    color: white;
-                    border: none;
-                    border-radius: 5px;
-                    transition: background-color 0.3s ease;
-                }
-                div.stDownloadButton > button:hover {
-                    background-color: #45a049;
-                }
-            </style>
-            """, unsafe_allow_html=True)
-    st.download_button("Download CV", data=pdf_bytes, file_name="CV.pdf", mime="application/pdf")
 
     # Define available sections
     sections = ["Work Experiences", "Projects", "Articles"]
@@ -371,17 +376,101 @@ def web_portfolio():
             st.markdown("---")
 
     elif selected_section == "Articles":
+        # Theme-aware styling
+        theme = st.get_option("theme.base")
+        text_color = "#FFFFFF" if theme == "dark" else "#000000"
+        background_color = "#581845" if theme == "dark" else "#F0F0F0"
+
+        # Title
         st.markdown("""
         <div style="text-align: center;">
-            <h3 style="font-size: 24px; font-weight: bold;">Articles</h3>
-        </div>
-        <div style="display: flex; justify-content: center; padding: 20px;">
-            <ul>
-                <li><a href="https://medium.com/example-article" target="_blank">Dummy Article 1</a></li>
-            </ul>
+            <h1>Articles</h1>
         </div>
         """, unsafe_allow_html=True)
-    
+
+        # List of articles
+        articles = [
+            {
+                "title": "Supervised 3D Bounding Box Detection Pipeline",
+                "description": "A comprehensive guide to building an end-to-end pipeline for 3D object detection using transformer-based architectures.",
+                "image_path": "images/3dboundingbox.png",
+                "url": "https://medium.com/@shrinidhi.bhat/supervised-3d-bounding-box-detection-pipeline-e6a8c9976165",
+                "date": "April 2025",
+                "reading_time": "8 min read"
+            }
+            # Add more articles here as needed
+        ]
+
+        # CSS for article cards
+        st.markdown(f"""
+        <style>
+        .article-card {{
+            background-color: {background_color};
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease-in-out;
+            color: {text_color};
+            display: flex;
+            align-items: center;
+        }}
+        .article-card:hover {{
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }}
+        .article-image {{
+            flex: 1;
+            margin-right: 20px;
+        }}
+        .article-content {{
+            flex: 3;
+        }}
+        .article-title {{
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }}
+        .article-meta {{
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }}
+        .article-description {{
+            font-size: 16px;
+            margin-bottom: 15px;
+        }}
+        .read-more-btn {{
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #262626;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }}
+        .read-more-btn:hover {{
+            background-color: #45a049;
+        }}
+        </style>
+        """, unsafe_allow_html=True)
+
+        # Render each article
+        for article in articles:
+            st.markdown(f"""
+            <div class="article-card">
+                <div class="article-image">
+                    <img src="data:image/jpeg;base64,{b64encode(open(article['image_path'], 'rb').read()).decode()}" alt="{article['title']}" style="width:100%; border-radius:10px;">
+                </div>
+                <div class="article-content">
+                    <div class="article-title">{article['title']}</div>
+                    <div class="article-meta">{article['date']} · {article['reading_time']}</div>
+                    <div class="article-description">{article['description']}</div>
+                    <a href="{article['url']}" target="_blank" class="read-more-btn">Read on Medium</a>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
 
 if __name__ == "__main__":
