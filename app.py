@@ -86,7 +86,7 @@ def web_portfolio():
         <div class="download-container"></div>
         """, unsafe_allow_html=True)
 
-        st.download_button("Download CV", data=pdf_bytes, file_name="CV.pdf", mime="application/pdf")
+        st.download_button("Download CV", data=pdf_bytes, file_name="Resume.pdf", mime="application/pdf")
 
     with col2:
         # Display the "About Me" section
