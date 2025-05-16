@@ -16,7 +16,7 @@ def web_portfolio():
     st.markdown("<style>div.block-container{padding-top: 4rem;}</style>", unsafe_allow_html=True)
 
     # Add profile image
-    with open('images/image_zapikanka.jpg', 'rb') as image_file:
+    with open('assets/images/image_zapikanka.jpg', 'rb') as image_file:
         # Use of base64 encoding to display the image
         image = "data:image/jpeg;base64," + b64encode(image_file.read()).decode()
     
@@ -24,7 +24,7 @@ def web_portfolio():
     col1, col2 = st.columns([1, 3], gap="small")
 
     # For PDF files
-    with open('CV.pdf', 'rb') as pdf_file:
+    with open('assets/Resume.pdf', 'rb') as pdf_file:
         pdf_bytes = pdf_file.read()
 
     with col1:
@@ -86,7 +86,7 @@ def web_portfolio():
         <div class="download-container"></div>
         """, unsafe_allow_html=True)
 
-        st.download_button("Download CV", data=pdf_bytes, file_name="Resume.pdf", mime="application/pdf")
+        st.download_button("Download CV", data=pdf_bytes, file_name="CV.pdf", mime="application/pdf")
 
     with col2:
         # Display the "About Me" section
@@ -312,7 +312,7 @@ def web_portfolio():
             {
             "title": "3D Bounding Box Prediction",
             "description": "Built an end-to-end pipeline using 3DETR for predicting bounding box corners on point cloud data.",
-            "image_path": "images/3dboundingbox.png",
+            "image_path": "assets/images/3dboundingbox.png",
             "github_url": "https://github.com/Shrinidhibhat87/codingchallenge_sereact",
             "points": [
                 "Developed an end-to-end deep learning pipeline for 3D bounding box prediction, integrating a custom dataloader, data augmentation, and a transformer-based model architecture.",
@@ -324,7 +324,7 @@ def web_portfolio():
             {
             "title": "Master Thesis - Transformer based Compression for Semantic Segmentation",
             "description": "Integrated Mask2Former and built a bandwidth efficient semantic segmentation framework on CityScapes dataset.",
-            "image_path": "images/master_thesis.png",
+            "image_path": "assets/images/master_thesis.png",
             "github_url": "https://github.com/Shrinidhibhat87/MasterThesis",
             "points": [
                 "Designed and developed the entire architecture for bandwidth efficient semantic segmentation using Mask2Former.",
@@ -335,7 +335,7 @@ def web_portfolio():
             {
             "title": "Monocular visual odometry",
             "description": "Built a monocular visual odometry pipeline using OpenCV, FAST, and the Lucas-Kanade optical flow algorithm (KLT) for feature tracking.",
-            "image_path": "images/visual_odometry.png",
+            "image_path": "assets/images/visual_odometry.png",
             "github_url": "https://github.com/Shrinidhibhat87/monocular_visual_odometry",
             "points": [
                 "Developed monocular visual odometry algorithm that estimates camera motion between consecutive frames.",
